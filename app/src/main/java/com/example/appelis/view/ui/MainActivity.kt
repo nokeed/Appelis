@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.appelis.databinding.WelcomeScreenActivityBinding
-import com.example.appelis.model.ApiClient
-import com.example.appelis.model.RetrofitHelper
+import com.example.appelis.data.network.ApiClient
+import com.example.appelis.core.RetrofitHelper
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: WelcomeScreenActivityBinding
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnStart.setOnClickListener {
             getInitData()
-            var intent = Intent(this, PrincipalActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
 

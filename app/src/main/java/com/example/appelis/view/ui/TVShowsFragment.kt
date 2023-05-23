@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.appelis.R
+import dagger.hilt.android.AndroidEntryPoint
 
 
 
+@AndroidEntryPoint
 class TVShowsFragment : Fragment() {
 
 //    override fun onCreate(savedInstanceState: Bundle?) {

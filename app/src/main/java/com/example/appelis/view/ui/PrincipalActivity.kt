@@ -3,14 +3,14 @@ package com.example.appelis.view.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.example.appelis.R
 import com.example.appelis.databinding.ActivityPrincipalBinding
-import com.example.appelis.viewmodel.MoviesPopularViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PrincipalActivity : AppCompatActivity() {
     lateinit var toogle: ActionBarDrawerToggle
     lateinit var binding: ActivityPrincipalBinding
@@ -30,10 +30,11 @@ class PrincipalActivity : AppCompatActivity() {
 
     }
 
-    private fun getNetworkData(){
-        // llamar a retrofit y guardarlo en la base de datos
+//    private fun getNetworkData() {
+//        // llamar a retrofit y guardarlo en la base de datos
+//
+//    }
 
-    }
     private fun initDrawer() {
         toogle = ActionBarDrawerToggle(
             this,

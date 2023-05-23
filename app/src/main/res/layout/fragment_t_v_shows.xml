@@ -62,11 +62,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
     <TextView
-        android:id="@+id/tvPopularShows"
+        android:id="@+id/tvTopRated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/popular"
+        android:text="@string/top_rated"
         android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
         android:background="@color/color_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPopularShows" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTopRated" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPopularShows"

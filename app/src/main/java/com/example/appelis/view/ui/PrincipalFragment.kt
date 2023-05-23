@@ -6,24 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.appelis.R
 import com.example.appelis.databinding.FragmentPrincipalBinding
-import com.example.appelis.model.MovieDetailProvider
-import com.example.appelis.model.MovieDetailRepository
-import com.example.appelis.model.MovieDetailUseCase
-import com.example.appelis.view.popularrv.MoviePopularAdapter
+import com.example.appelis.view.popularmoviesrv.MoviePopularAdapter
+import com.example.appelis.view.populartvshowsrv.TvShowPopularAdapter
 import com.example.appelis.viewmodel.MoviesPopularViewModel
+import com.example.appelis.viewmodel.TvShowsPopularViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PrincipalFragment : Fragment() {
 
     //    private var param1: String? = null
 //    private var param2: String? = null
-    lateinit var adapter: MoviePopularAdapter
-    val movieDetailViewModel: MoviesPopularViewModel by viewModels()
+    lateinit var moviesPopularAdapter: MoviePopularAdapter
+    lateinit var tvShowsPopularAdapter: TvShowPopularAdapter
+    val moviesPopularViewModel: MoviesPopularViewModel by viewModels()
+    val tvShowPopularViewModel: TvShowsPopularViewModel by viewModels()
     private var _binding: FragmentPrincipalBinding? = null
     private val binding get() = _binding!!
 
@@ -51,21 +50,39 @@ class PrincipalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initMoviesRVAdapter()
+        initTvShowRVAdapter()
         getData()
 
 
     }
 
     private fun getData() {
-        movieDetailViewModel.onCreate()
-        movieDetailViewModel.moviePopular.observe(viewLifecycleOwner, Observer {
-            adapter.updateData(it)
-        })
+        moviesPopularViewModel.onCreate()
+        moviesPopularViewModel.moviePopular.observe(viewLifecycleOwner) {
+            moviesPopularAdapter.updateData(it)
+        }
+        tvShowPopularViewModel.onCreate()
+        tvShowPopularViewModel.tvshowsPopular.observe(viewLifecycleOwner) {
+            tvShowsPopularAdapter.updateData(it)
+        }
+
+
+    }
+
+    private fun initTvShowRVAdapter() {
+        tvShowsPopularAdapter = TvShowPopularAdapter()
+        _binding!!.rvLastestTvshows.setHasFixedSize(true)
+        _binding!!.rvLastestTvshows.layoutManager = LinearLayoutManager(
+            _binding!!.rvLastestTvshows.context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        _binding!!.rvLastestTvshows.adapter = tvShowsPopularAdapter
 
     }
 
     private fun initMoviesRVAdapter() {
-        adapter = MoviePopularAdapter()
+        moviesPopularAdapter = MoviePopularAdapter()
         _binding!!.rvLastestMovies.setHasFixedSize(true)
         _binding!!.rvLastestMovies.layoutManager =
             LinearLayoutManager(
@@ -73,9 +90,10 @@ class PrincipalFragment : Fragment() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-        _binding!!.rvLastestMovies.adapter = adapter
+        _binding!!.rvLastestMovies.adapter = moviesPopularAdapter
 
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

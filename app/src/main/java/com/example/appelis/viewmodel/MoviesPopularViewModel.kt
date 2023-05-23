@@ -3,20 +3,22 @@ package com.example.appelis.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.appelis.model.MovieDetailResponse
-import com.example.appelis.model.MovieDetailUseCase
-import com.example.appelis.model.MoviePopularResponseList
+import com.example.appelis.domain.MoviePopularUseCase
+import com.example.appelis.domain.model.RecyclerViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoviesPopularViewModel : ViewModel() {
+@HiltViewModel
+class MoviesPopularViewModel @Inject constructor(private val getMoviesPopularUseCase: MoviePopularUseCase) : ViewModel() {
 
-    var getMoviePopularUseCase = MovieDetailUseCase()
-    val moviePopular = MutableLiveData<List<MoviePopularResponseList>>()
+//    var getMoviePopularUseCase = MovieDetailUseCase()
+    val moviePopular = MutableLiveData<List<RecyclerViewModel>>()
 
 
     fun onCreate(){
         viewModelScope.launch {
-            val result: List<MoviePopularResponseList> = getMoviePopularUseCase.invoke()
+            val result: List<RecyclerViewModel> = getMoviesPopularUseCase.invoke()
             moviePopular.postValue(result)
         }
     }
